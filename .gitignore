@@ -25,3 +25,7 @@ $RECYCLE.BIN/
 
 # jetbrains
 .idea
+
+node_modules
+
+*.dll
