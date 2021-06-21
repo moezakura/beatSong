@@ -11,10 +11,6 @@ protocol.registerSchemesAsPrivileged([
   { scheme: 'app', privileges: { secure: true, standard: true } },
 ]);
 
-function getResourceDirectory(){
-  return process.env.NODE_ENV === 'development' ? path.join(process.cwd(), 'dist_electron') : path.join(process.resourcesPath, 'app.asar.unpacked', 'dist');
-}
-
 async function createWindow() {
   // Create the browser window.
   const win = new BrowserWindow({
@@ -22,7 +18,7 @@ async function createWindow() {
     height: 1000,
     titleBarStyle: 'hidden',
     webPreferences: {
-      preload:  path.resolve(getResourceDirectory(), 'preload.js'),
+      preload:  path.join(__dirname, 'preload.js'),
       nodeIntegration: false,
       contextIsolation: true,
       enableRemoteModule:true,
