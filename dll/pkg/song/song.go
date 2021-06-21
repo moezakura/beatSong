@@ -11,6 +11,8 @@ const (
 )
 
 type Song struct {
+	ID         string           `json:"id"`
+	IsValidID  bool             `json:"isValidID"`
 	DirPath    string           `json:"dirPath"`
 	ImagePath  string           `json:"imagePath"`
 	Name       string           `json:"name"`

@@ -5,6 +5,7 @@ import (
 	"log"
 	"os"
 	"path/filepath"
+	"regexp"
 	"strings"
 	"sync"
 
@@ -28,6 +29,7 @@ func (s *SongParser) GetList(root string) ([]*Song, error) {
 	wg := new(sync.WaitGroup)
 	st := make(chan struct{}, 30)
 	songsInfo := make([]*Song, 0, len(songDir))
+	sir := regexp.MustCompile("^[1-9a-f][0-9a-f]*$")
 
 	for _, f := range songDir {
 		st <- struct{}{}
@@ -80,7 +82,16 @@ func (s *SongParser) GetList(root string) ([]*Song, error) {
 				}
 			}
 
+			dirName := filepath.Base(f)
+			id := strings.Split(dirName, " ")[0]
+			isValidID := sir.MatchString(id)
+			if !isValidID {
+				id = "UNKNOWN"
+			}
+
 			si := &Song{
+				ID:         id,
+				IsValidID:  isValidID,
 				DirPath:    f,
 				ImagePath:  filepath.Join(f, ij.CoverImageFilename),
 				Name:       ij.SongName,
