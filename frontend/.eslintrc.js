@@ -5,11 +5,13 @@ module.exports = {
     node: true,
   },
   extends: [
-    '@nuxtjs/eslint-config-typescript',
-    'plugin:prettier/recommended',
-    'plugin:nuxt/recommended',
+    'eslint:recommended',
+    'prettier',
+    'prettier/vue',
+    'plugin:vue/essential',
+    '@vue/typescript',
   ],
-  plugins: [],
+  plugins: ['prettier'],
   // add your custom rules here
   rules: {
     'no-extra-semi': 'warn',
